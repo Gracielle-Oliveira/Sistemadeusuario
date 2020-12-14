@@ -5,14 +5,17 @@ import * as Auth from '../service/Auth';
 const Protroute = ({component: Component, ...rest}) => {
     return (
 
-        < Route {...rest} render={ (props) => {
-                
-            if (Auth.logUser() === true) {
-              return <Component {...props} />
-            } else {
-              return <Redirect to={{ pathname: '/login' }} />
-            }
-            }} />
+        < Route {...rest} render={ (props) => Auth.logUser().then( (getUserByToken) => {
+
+            
+              if (getUserByToken.length > 0) {
+                return <Component {...props} />
+              } else {
+                return <Redirect to={{ pathname: '/login' }} />
+              }
+            })
+            
+            } />
     )
 
 }

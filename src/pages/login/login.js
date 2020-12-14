@@ -3,6 +3,7 @@ import _ from './login.css';
 import {useHistory} from 'react-router-dom';
 import {useState} from 'react';
 import { openLogin, setToken } from '../../service/Auth';
+import {ValidateEmail} from '../../utils/validation';
 
 
 const Startlogin = (props) => {
@@ -36,6 +37,12 @@ const Startlogin = (props) => {
                 this.setstate({err:true, errMessage: "Senha dever ter pelo menos quatro caracteres"})
                 return  
             }
+
+            if (!ValidateEmail(this.state.crendetials.user)) {
+                this.setstate({err:true, errMessage: "Email inválido"})
+                return  
+            }
+
             openLogin (crendetials).then(
                 (resultJson) => {
 

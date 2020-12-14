@@ -1,27 +1,22 @@
 import React from 'react';
 
 
-const logUser = async () => {
+const logUser = () => {
     let token = localStorage.getItem('token')
 
-    let getUserByToken = await fetch(`http://localhost:3001/token=${token}`).then(
+    return fetch(`http://localhost:4000users?/token=${token}`).then(
         (result) => {
 
             return result.json()
         }
     )
 
-    if (getUserByToken.length > 0) {
-        return true
-    }
-
-    return false
-
+    
 }
 
 function openLogin (crendetials) {
 
-    return fetch(`http://localhost:3001/users?user=${crendetials.user}&password=${crendetials.password}`).then(
+    return fetch(`http://localhost:4000/users?user=${crendetials.user}&password=${crendetials.password}`).then(
         (result) => {
 
             return result.json()
